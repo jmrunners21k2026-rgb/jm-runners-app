@@ -1,5 +1,5 @@
 
-import { Phase, Week } from './types';
+import { Phase, Week } from './types.ts';
 
 export const TRAINING_PLAN: Week[] = [
   // FASE 1
@@ -112,12 +112,20 @@ export const TRAINING_PLAN: Week[] = [
 
 export const MOTIVATIONAL_PHRASES = [
   "Terminar forte é consequência de começar com inteligência.",
-  "O pace não importa, o volume é a chave.",
+  "O pace não importa, o volume é a chave do sucesso.",
   "Regra de ouro: se sentir desconforto, não suba o volume.",
-  "Cada quilômetro conta na construção do seu sonho.",
-  "Respeite seu corpo, ele é o seu motor.",
-  "A primeira meia maratona é uma conquista para a vida toda."
+  "Cada quilômetro conta na construção da sua resistência.",
+  "Respeite seu corpo, ele é o motor da sua conquista.",
+  "Sua primeira meia maratona será uma memória eterna."
 ];
+
+export const FUNCTIONAL_METADATA = {
+  objective: "prevenção de lesões, economia de corrida e estabilidade",
+  schedule: [
+    { label: "Treino Funcional A", detail: "1–2 dias antes do treino noturno" },
+    { label: "Treino Funcional B", detail: "2–3 dias antes do longão" }
+  ]
+};
 
 export const FUNCTIONAL_A = {
   title: "Treino A – Estabilidade e Core",
@@ -126,21 +134,77 @@ export const FUNCTIONAL_A = {
     "Agachamento livre – 3x12",
     "Avanço (lunge) alternado – 3x10 por perna",
     "Ponte de glúteo – 3x15",
-    "Prancha frontal – 3x30–45s",
+    "Prancha frontal – 3x45s",
     "Prancha lateral – 3x30s por lado",
     "Elevação de panturrilha – 3x15"
   ]
 };
 
 export const FUNCTIONAL_B = {
-  title: "Treino B – Força específica para corrida",
+  title: "Treino B – Força Específica",
   duration: "35–45 min",
   exercises: [
     "Leg press ou agachamento guiado – 3x10",
     "Stiff ou levantamento terra romeno – 3x10",
     "Step-up em caixa – 3x10 por perna",
-    "Abdução de quadril (elástico ou máquina) – 3x15",
-    "Core com rotação (russian twist) – 3x20",
-    "Panturrilha em pé ou sentado – 3x15"
+    "Abdução de quadril – 3x15",
+    "Russian twist (Core) – 3x20",
+    "Panturrilha sentado – 3x15"
   ]
+};
+
+export const NUTRITION_GUIDE = {
+  vespera: {
+    title: "Protocolo Pré-Longão (Véspera)",
+    tips: [
+      "Dormir no mínimo 7-8h",
+      "Não consumir álcool",
+      "Jantar leve e conhecido (sem testes)",
+      "Evitar alimentos gordurosos",
+      "Separar roupas, tênis e gel/bebida",
+      "Hidratar-se bem ao longo do dia",
+      "Evitar telas excessivas à noite"
+    ]
+  },
+  antes: {
+    title: "Antes do Longão (2-3h antes)",
+    items: [
+      "Carboidrato simples + moderado (pão com mel, banana com aveia, tapioca)",
+      "Pequena fonte de proteína",
+      "Água: 400–600 ml até 1h antes",
+      "Café é permitido, se já habituado"
+    ]
+  },
+  durante: {
+    title: "Durante o Longão",
+    items: [
+      "Até 10-12K: água suficiente",
+      "Acima de 12-14K: 1 gel a cada 45-50 min",
+      "Água in pequenos goles constante",
+      "Nunca testar gel novo próximo da prova"
+    ]
+  },
+  pos: {
+    title: "Pós-Longão",
+    items: [
+      "Refeição em até 60 min",
+      "Carboidrato + proteína para reparo",
+      "Reidratar até urina estar clara"
+    ]
+  },
+  prova: {
+    title: "Dia da Prova (21K)",
+    antes: [
+      "Acordar 3h antes da largada",
+      "Café da manhã igual ao do treino",
+      "400-500ml de água até 1h antes",
+      "Aquecimento: 5-8 min trotando leve"
+    ],
+    durante: [
+      "Ritmo confortável desde o km 1",
+      "Estratégia: começar mais lento que o necessário",
+      "Gel a cada 45-50 min",
+      "Água em todos os postos de hidratação"
+    ]
+  }
 };
