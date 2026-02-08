@@ -304,7 +304,7 @@ const App: React.FC = () => {
               </Card>
               <Card className="!p-4 border-l-4 border-l-orange-500">
                 <p className="font-bold text-gray-900 text-sm mb-2">Durante o longão</p>
-                <p className="text-xs text-gray-500">Acima de 12-14K: 1 gel a cada 45-50 min. Água em pequenos goles.</p>
+                <p className="text-xs text-gray-500">Acima de 12-14K: 1 gel a cada 45-50 min. Água in pequenos goles.</p>
               </Card>
               <Card className="!p-4 border-l-4 border-l-green-500">
                 <p className="font-bold text-gray-900 text-sm mb-2">Pós-longão</p>
@@ -408,13 +408,14 @@ const App: React.FC = () => {
   );
 };
 
+// Fixed TypeScript error by casting icon to React.ReactElement<any> in cloneElement call.
 const NavButton: React.FC<{ active: boolean; icon: React.ReactNode; label: string; onClick: () => void }> = ({ active, icon, label, onClick }) => (
   <button 
     onClick={onClick}
     className={`flex flex-col items-center gap-1 transition-colors duration-200 ${active ? 'text-indigo-600' : 'text-gray-400'}`}
   >
     <div className={`p-2 rounded-2xl transition-all ${active ? 'bg-indigo-50' : ''}`}>
-      {React.cloneElement(icon as React.ReactElement, { size: 22, strokeWidth: active ? 2.5 : 2 })}
+      {React.cloneElement(icon as React.ReactElement<any>, { size: 22, strokeWidth: active ? 2.5 : 2 })}
     </div>
     <span className="text-[10px] font-bold tracking-tight uppercase">{label}</span>
   </button>
