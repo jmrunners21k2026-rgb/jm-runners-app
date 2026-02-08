@@ -17,8 +17,8 @@ import {
   Droplets,
   Trophy
 } from 'lucide-react';
-import { TabType, Week, Workout, Phase } from './types';
-import { TRAINING_PLAN, MOTIVATIONAL_PHRASES, FUNCTIONAL_A, FUNCTIONAL_B } from './data';
+import { TabType, Week, Workout, Phase } from './types.ts';
+import { TRAINING_PLAN, MOTIVATIONAL_PHRASES, FUNCTIONAL_A, FUNCTIONAL_B } from './data.ts';
 
 // Helper Components
 const Container: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -408,14 +408,14 @@ const App: React.FC = () => {
   );
 };
 
-// Fixed TypeScript error by casting icon to React.ReactElement<any> in cloneElement call.
+// Componente de botão de navegação corrigido
 const NavButton: React.FC<{ active: boolean; icon: React.ReactNode; label: string; onClick: () => void }> = ({ active, icon, label, onClick }) => (
   <button 
     onClick={onClick}
     className={`flex flex-col items-center gap-1 transition-colors duration-200 ${active ? 'text-indigo-600' : 'text-gray-400'}`}
   >
     <div className={`p-2 rounded-2xl transition-all ${active ? 'bg-indigo-50' : ''}`}>
-      {React.cloneElement(icon as React.ReactElement<any>, { size: 22, strokeWidth: active ? 2.5 : 2 })}
+      {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<any>, { size: 22, strokeWidth: active ? 2.5 : 2 }) : icon}
     </div>
     <span className="text-[10px] font-bold tracking-tight uppercase">{label}</span>
   </button>
