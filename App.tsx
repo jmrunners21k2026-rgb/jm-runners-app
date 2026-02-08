@@ -24,10 +24,20 @@ import {
   Activity,
   Award,
   ChevronDown,
-  User
+  User,
+  HeartPulse
 } from 'lucide-react';
 import { TabType } from './types';
-import { TRAINING_PLAN, MOTIVATIONAL_PHRASES, FUNCTIONAL_A, FUNCTIONAL_B, FUNCTIONAL_METADATA, NUTRITION_GUIDE } from './data';
+import { 
+  TRAINING_PLAN, 
+  MOTIVATIONAL_PHRASES, 
+  FUNCTIONAL_A, 
+  FUNCTIONAL_B, 
+  FUNCTIONAL_METADATA, 
+  NUTRITION_GUIDE,
+  GENERAL_STRATEGY,
+  WORKOUT_GUIDES
+} from './data';
 
 const Container: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="max-w-md mx-auto min-h-screen pb-28 relative bg-black shadow-2xl overflow-hidden border-x border-zinc-900">
@@ -109,7 +119,6 @@ const App: React.FC = () => {
     return (
       <div className="space-y-6 px-6 pt-10 animate-in fade-in duration-500">
         <header className="flex flex-col items-center text-center">
-          {/* Logotipo Ampliado - Sem Caixa de Fundo */}
           <div className="relative mb-6 w-full px-1">
             <div className="absolute inset-0 bg-blue-600/10 blur-3xl rounded-full scale-110"></div>
             <div className="w-full relative z-10 flex items-center justify-center">
@@ -153,9 +162,29 @@ const App: React.FC = () => {
           </div>
         </Card>
 
+        {/* ESTRATÉGIA GERAL DO PLANO */}
+        <section className="animate-in slide-in-from-bottom duration-700">
+           <Card borderVariant="green" className="!p-6 bg-zinc-900/40 relative overflow-hidden">
+             <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl"></div>
+             <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-400"><Target size={20}/></div>
+                <h3 className="font-black text-sm text-white uppercase italic tracking-tighter">Estratégia Geral do Plano</h3>
+             </div>
+             <div className="space-y-3">
+                <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1 italic">Foco: {GENERAL_STRATEGY.focus}</p>
+                {GENERAL_STRATEGY.points.map((p, idx) => (
+                  <div key={idx} className="flex gap-3">
+                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                    <p className="text-[11px] text-zinc-300 font-bold uppercase leading-tight italic">{p}</p>
+                  </div>
+                ))}
+             </div>
+           </Card>
+        </section>
+
         <section className="space-y-4">
           <div className="flex items-center justify-center gap-2">
-            <Target className="text-orange-500 w-4 h-4" />
+            <Timer className="text-orange-500 w-4 h-4" />
             <h3 className="font-bold text-sm text-white uppercase italic">Sua Próxima Sessão</h3>
           </div>
           
@@ -194,6 +223,8 @@ const App: React.FC = () => {
   };
 
   const TrainingPlan = () => {
+    const [selectedGuide, setSelectedGuide] = useState<'light' | 'fartlek' | 'pace'>('light');
+
     return (
       <div className="pb-10 animate-in slide-in-from-right duration-300">
         <SectionHeader 
@@ -202,6 +233,87 @@ const App: React.FC = () => {
           subtitle="A evolução é gradual e constante" 
           color="bg-blue-600/10"
         />
+
+        {/* GUIA DE EXECUÇÃO - NOVOS ANEXOS */}
+        <section className="px-6 mb-10">
+          <div className="flex items-center gap-2 mb-4 justify-center">
+             <HeartPulse className="text-blue-500 w-4 h-4"/>
+             <h3 className="font-black text-xs text-zinc-400 uppercase tracking-[0.2em] italic">Guia de Execução</h3>
+          </div>
+          
+          <div className="flex gap-2 mb-4 overflow-x-auto no-scrollbar pb-2">
+             <button 
+               onClick={() => setSelectedGuide('light')}
+               className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${selectedGuide === 'light' ? 'bg-blue-600 text-white' : 'bg-zinc-900 text-zinc-500 border border-white/5'}`}
+             >
+               Leve / Reg.
+             </button>
+             <button 
+               onClick={() => setSelectedGuide('fartlek')}
+               className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${selectedGuide === 'fartlek' ? 'bg-orange-600 text-white' : 'bg-zinc-900 text-zinc-500 border border-white/5'}`}
+             >
+               Fartlek
+             </button>
+             <button 
+               onClick={() => setSelectedGuide('pace')}
+               className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${selectedGuide === 'pace' ? 'bg-emerald-600 text-white' : 'bg-zinc-900 text-zinc-500 border border-white/5'}`}
+             >
+               Ritmos
+             </button>
+          </div>
+
+          <div className="animate-in fade-in zoom-in-95 duration-300">
+            {selectedGuide === 'light' && (
+              <Card borderVariant="blue" className="!p-6 bg-zinc-900/60">
+                <h4 className="text-white font-black uppercase italic text-base mb-1 tracking-tighter">{WORKOUT_GUIDES.light.title}</h4>
+                <p className="text-[9px] text-blue-400 font-bold uppercase tracking-widest mb-4 italic">Duração: {WORKOUT_GUIDES.light.duration}</p>
+                <div className="space-y-4">
+                  {WORKOUT_GUIDES.light.steps.map((s, i) => (
+                    <div key={i} className="flex flex-col gap-1">
+                      <span className="text-[10px] font-black text-white uppercase italic">{s.name}</span>
+                      <span className="text-[11px] text-zinc-400 font-bold uppercase leading-tight italic">{s.detail}</span>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            )}
+
+            {selectedGuide === 'fartlek' && (
+              <Card borderVariant="orange" className="!p-6 bg-zinc-900/60">
+                <h4 className="text-white font-black uppercase italic text-base mb-1 tracking-tighter">{WORKOUT_GUIDES.fartlek.title}</h4>
+                <p className="text-[9px] text-orange-400 font-bold uppercase tracking-widest mb-4 italic">Freq: {WORKOUT_GUIDES.fartlek.frequency}</p>
+                <div className="space-y-4">
+                  {WORKOUT_GUIDES.fartlek.steps.map((s, i) => (
+                    <div key={i} className={`flex flex-col gap-1 ${s.name.includes('Modelo') ? 'pl-3 border-l-2 border-orange-500/30' : ''}`}>
+                      <span className={`text-[10px] font-black uppercase italic ${s.name.includes('Modelo') ? 'text-orange-400' : 'text-white'}`}>{s.name}</span>
+                      <span className="text-[11px] text-zinc-400 font-bold uppercase leading-tight italic">{s.detail}</span>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            )}
+
+            {selectedGuide === 'pace' && (
+              <Card borderVariant="green" className="!p-6 bg-zinc-900/60">
+                <h4 className="text-white font-black uppercase italic text-base mb-4 tracking-tighter">{WORKOUT_GUIDES.pace.title}</h4>
+                <div className="space-y-4">
+                  <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
+                    <p className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-1">{WORKOUT_GUIDES.pace.light.label}</p>
+                    <p className="text-xl font-black text-white italic tracking-tighter leading-none">{WORKOUT_GUIDES.pace.light.pace}</p>
+                    <p className="text-[8px] text-zinc-500 font-bold uppercase mt-1 tracking-widest">{WORKOUT_GUIDES.pace.light.status}</p>
+                  </div>
+                  <div className="bg-black/40 p-3 rounded-2xl border border-white/5">
+                    <p className="text-[9px] font-black text-orange-400 uppercase tracking-widest mb-1">{WORKOUT_GUIDES.pace.fartlek.label}</p>
+                    <p className="text-xl font-black text-white italic tracking-tighter leading-none">{WORKOUT_GUIDES.pace.fartlek.pace}</p>
+                    <p className="text-[8px] text-zinc-500 font-bold uppercase mt-1 tracking-widest">{WORKOUT_GUIDES.pace.fartlek.status}</p>
+                  </div>
+                </div>
+              </Card>
+            )}
+          </div>
+        </section>
+
+        <div className="h-px bg-white/5 mx-10 mb-8"></div>
         
         <div className="space-y-8 px-6">
           {TRAINING_PLAN.map((week) => (
@@ -480,7 +592,6 @@ const App: React.FC = () => {
         {renderContent()}
       </main>
 
-      {/* Navegação Inferior Super Slim & Moderna */}
       <nav className="fixed bottom-4 left-4 right-4 max-w-[calc(448px-2rem)] mx-auto bg-blue-700/90 backdrop-blur-md shadow-2xl border border-white/10 px-6 py-2 flex justify-between items-center z-50 rounded-[2rem]">
         <NavButton active={activeTab === 'home'} icon={<Home />} onClick={() => setActiveTab('home')} />
         <NavButton active={activeTab === 'plan'} icon={<Calendar />} onClick={() => setActiveTab('plan')} />

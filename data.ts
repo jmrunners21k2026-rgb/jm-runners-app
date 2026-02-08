@@ -119,6 +119,48 @@ export const MOTIVATIONAL_PHRASES = [
   "Sua primeira meia maratona será uma memória eterna."
 ];
 
+export const GENERAL_STRATEGY = {
+  focus: "Aumento progressivo de volume",
+  points: [
+    "Sem pressão por pace: foque na distância",
+    "Treino da Noite: Corrida leve/regenerativa ou Fartlek controlado",
+    "Fim de Semana: Longão contínuo em ritmo conversável",
+    "Distância máxima antes da prova: 18K",
+    "Últimas 2 semanas: Redução drástica de volume (Taper)"
+  ]
+};
+
+export const WORKOUT_GUIDES = {
+  light: {
+    title: "Treino Leve / Regenerativo",
+    duration: "40 a 50 minutos",
+    steps: [
+      { name: "1. Aquecimento", detail: "8–10 min trotando bem leve (ritmo de conversa fácil)" },
+      { name: "2. Corrida contínua leve", detail: "25–35 min em ritmo confortável. Pace: 7:00 a 7:30 min/km" },
+      { name: "3. Desaquecimento", detail: "5 min caminhando" },
+      { name: "4. Alongamento leve", detail: "Panturrilhas, posterior, glúteos e lombar (5–8 min)" }
+    ]
+  },
+  fartlek: {
+    title: "Treino Fartlek",
+    frequency: "1x a cada 2 semanas",
+    duration: "45 a 55 minutos",
+    steps: [
+      { name: "1. Aquecimento", detail: "10 min trotando leve" },
+      { name: "2. Fartlek Principal", detail: "Ritmo Forte = Confortavelmente difícil (~6:00-6:20)" },
+      { name: "Modelo A (Iniciante)", detail: "5x (1 min ritmo mais forte + 2 min trotando leve)" },
+      { name: "Modelo B (Interm.)", detail: "4x (2 min ritmo moderado + 2 min trotando leve)" },
+      { name: "3. Corrida Leve", detail: "10–15 min leve após o fartlek" },
+      { name: "4. Desaquecimento", detail: "5 min caminhando + alongamento" }
+    ]
+  },
+  pace: {
+    title: "Orientação de Ritmo",
+    light: { label: "Leves / Longões", pace: "6:45–7:30 min/km", status: "Conversável" },
+    fartlek: { label: "Fartlek (Blocos)", pace: "6:00–6:20 min/km", status: "Sem Sprint" }
+  }
+};
+
 export const FUNCTIONAL_METADATA = {
   objective: "prevenção de lesões, economia de corrida e estabilidade",
   schedule: [
