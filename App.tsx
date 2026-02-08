@@ -121,8 +121,12 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <h1 className="text-3xl font-black tracking-tighter text-white uppercase italic">JM RUNNERS - Missão 21K 🏃‍♂️</h1>
-          <p className="text-zinc-400 text-[11px] font-bold leading-relaxed max-w-[280px] mt-2 mb-6 uppercase tracking-tight">
+          <div className="flex flex-col items-center space-y-1 mb-4">
+            <h1 className="text-sm font-black tracking-[0.2em] text-zinc-400 uppercase italic">JM RUNNERS</h1>
+            <h2 className="text-4xl font-black tracking-tighter text-white uppercase italic">Missão 21K 🏃‍♂️</h2>
+          </div>
+          
+          <p className="text-zinc-500 text-[11px] font-bold leading-relaxed max-w-[280px] mt-2 mb-6 uppercase tracking-tight">
             App Manual Eletrônico para corredores em treinamento para a distância de 21 Km.
           </p>
 
@@ -272,14 +276,14 @@ const App: React.FC = () => {
                 <p className="text-[11px] text-zinc-300 font-bold uppercase italic">{FUNCTIONAL_METADATA.objective}</p>
               </div>
               <div className="h-px bg-white/5"></div>
-              <div className="space-y-2">
-                <h3 className="text-[9px] font-black text-emerald-400 uppercase tracking-[0.2em] text-center mb-2 flex items-center justify-center gap-2">
-                  <Calendar size={12}/> Sugestão de Agenda
+              <div className="space-y-3">
+                <h3 className="text-[11px] font-black text-emerald-400 uppercase tracking-[0.2em] text-center mb-3 flex items-center justify-center gap-2">
+                  <Calendar size={14}/> Sugestão de Agenda
                 </h3>
                 {FUNCTIONAL_METADATA.schedule.map((item, i) => (
-                  <div key={i} className="flex justify-between items-center bg-black/30 p-2 rounded-xl border border-white/5">
-                    <span className="text-[9px] font-black text-white uppercase italic">{item.label}</span>
-                    <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-tighter">{item.detail}</span>
+                  <div key={i} className="flex flex-col items-center bg-black/40 p-4 rounded-2xl border border-white/5 text-center">
+                    <span className="text-[13px] font-black text-white uppercase italic mb-1">{item.label}</span>
+                    <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-tight leading-none">{item.detail}</span>
                   </div>
                 ))}
               </div>
