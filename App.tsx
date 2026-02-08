@@ -17,7 +17,7 @@ import {
   Droplets,
   Trophy
 } from 'lucide-react';
-import { TabType, Week, Workout, Phase } from './types.ts';
+import { TabType, Week, Workout, PhaseType } from './types.ts';
 import { TRAINING_PLAN, MOTIVATIONAL_PHRASES, FUNCTIONAL_A, FUNCTIONAL_B } from './data.ts';
 
 // Helper Components
@@ -408,7 +408,7 @@ const App: React.FC = () => {
   );
 };
 
-// Componente de botão de navegação corrigido
+// Componente de botão de navegação corrigido para garantir que o clone funcione
 const NavButton: React.FC<{ active: boolean; icon: React.ReactNode; label: string; onClick: () => void }> = ({ active, icon, label, onClick }) => (
   <button 
     onClick={onClick}
