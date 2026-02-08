@@ -14,13 +14,11 @@ import {
   MapPin,
   ChevronRight,
   Heart,
-  Droplets,
   Trophy
 } from 'lucide-react';
-import { TabType, Week, Workout, PhaseType } from './types.ts';
-import { TRAINING_PLAN, MOTIVATIONAL_PHRASES, FUNCTIONAL_A, FUNCTIONAL_B } from './data.ts';
+import { TabType } from './types';
+import { TRAINING_PLAN, MOTIVATIONAL_PHRASES, FUNCTIONAL_A, FUNCTIONAL_B } from './data';
 
-// Helper Components
 const Container: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="max-w-md mx-auto min-h-screen pb-24 relative bg-gray-50">
     {children}
@@ -39,7 +37,6 @@ const App: React.FC = () => {
   const [completedWorkouts, setCompletedWorkouts] = useState<Set<string>>(new Set());
   const [quote, setQuote] = useState(MOTIVATIONAL_PHRASES[0]);
 
-  // Load progress
   useEffect(() => {
     const saved = localStorage.getItem('jm_runners_progress');
     if (saved) {
@@ -61,7 +58,6 @@ const App: React.FC = () => {
     return Math.round((completedWorkouts.size / total) * 100);
   }, [completedWorkouts]);
 
-  // Main Views
   const Dashboard = () => {
     const nextWorkout = useMemo(() => {
       for (const week of TRAINING_PLAN) {
@@ -73,7 +69,7 @@ const App: React.FC = () => {
     }, []);
 
     return (
-      <div className="space-y-6 px-6 pt-8 animate-in fade-in duration-500">
+      <div className="space-y-6 px-6 pt-8">
         <header className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight text-indigo-900">JM RUNNERS</h1>
@@ -150,7 +146,7 @@ const App: React.FC = () => {
 
   const TrainingPlan = () => {
     return (
-      <div className="px-6 pt-8 animate-in slide-in-from-right duration-300">
+      <div className="px-6 pt-8">
         <h2 className="text-2xl font-black text-indigo-900 mb-6 flex items-center gap-2">
           <Calendar className="text-orange-500" /> Plano 21K
         </h2>
@@ -214,14 +210,14 @@ const App: React.FC = () => {
 
   const Functional = () => {
     return (
-      <div className="px-6 pt-8 animate-in slide-in-from-right duration-300">
+      <div className="px-6 pt-8">
         <h2 className="text-2xl font-black text-indigo-900 mb-2 flex items-center gap-2">
           <Dumbbell className="text-indigo-600" /> Funcional
         </h2>
         <p className="text-gray-500 mb-6 text-sm">Prevenção de lesões e economia de corrida.</p>
 
         <div className="space-y-6">
-          <Card className="bg-indigo-600 text-white !p-6" title="">
+          <Card className="bg-indigo-600 text-white !p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold">{FUNCTIONAL_A.title}</h3>
               <span className="text-xs bg-indigo-500/50 px-3 py-1 rounded-full">{FUNCTIONAL_A.duration}</span>
@@ -234,12 +230,9 @@ const App: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 pt-4 border-t border-indigo-500/30">
-              <p className="text-xs italic text-indigo-100">Fazer 1-2 dias antes do treino noturno.</p>
-            </div>
           </Card>
 
-          <Card className="bg-cyan-600 text-white !p-6" title="">
+          <Card className="bg-cyan-600 text-white !p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold">{FUNCTIONAL_B.title}</h3>
               <span className="text-xs bg-cyan-500/50 px-3 py-1 rounded-full">{FUNCTIONAL_B.duration}</span>
@@ -252,15 +245,7 @@ const App: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 pt-4 border-t border-cyan-500/30">
-              <p className="text-xs italic text-cyan-100">Fazer 2-3 dias antes do longão.</p>
-            </div>
           </Card>
-          
-          <div className="bg-orange-100 p-4 rounded-3xl flex gap-3 items-center">
-            <Info className="text-orange-500 flex-shrink-0" />
-            <p className="text-xs text-orange-700 font-bold">Carga moderada. Nunca treinar até a falha.</p>
-          </div>
         </div>
       </div>
     );
@@ -268,59 +253,16 @@ const App: React.FC = () => {
 
   const Nutrition = () => {
     return (
-      <div className="px-6 pt-8 animate-in slide-in-from-right duration-300">
+      <div className="px-6 pt-8">
         <h2 className="text-2xl font-black text-indigo-900 mb-6 flex items-center gap-2">
           <Utensils className="text-cyan-500" /> Nutrição
         </h2>
-
         <div className="space-y-6">
-          <section>
-            <h3 className="font-bold text-indigo-900 mb-3 flex items-center gap-2">
-              <Heart className="text-pink-500 w-4 h-4" /> Pré-Longão (Véspera)
-            </h3>
-            <div className="bg-white p-5 rounded-3xl border border-gray-100 space-y-3">
-              {[
-                "Dormir mínimo 7-8h",
-                "Não consumir álcool",
-                "Jantar leve e conhecido (sem testes)",
-                "Evitar alimentos gordurosos",
-                "Hidratar-se bem ao longo do dia"
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 text-sm text-gray-600 font-medium">
-                  <CheckCircle2 size={16} className="text-green-500" /> {item}
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section>
-            <h3 className="font-bold text-indigo-900 mb-3 flex items-center gap-2">
-              <Clock className="text-orange-500 w-4 h-4" /> Alimentação & Hidratação
-            </h3>
-            <div className="space-y-4">
-              <Card className="!p-4 border-l-4 border-l-indigo-500">
-                <p className="font-bold text-gray-900 text-sm mb-2">Antes do longão (2-3h antes)</p>
-                <p className="text-xs text-gray-500">Carboidratos simples (Pão com mel, tapioca, arroz branco) + pequena proteína. Água: 400-600ml.</p>
-              </Card>
-              <Card className="!p-4 border-l-4 border-l-orange-500">
-                <p className="font-bold text-gray-900 text-sm mb-2">Durante o longão</p>
-                <p className="text-xs text-gray-500">Acima de 12-14K: 1 gel a cada 45-50 min. Água in pequenos goles.</p>
-              </Card>
-              <Card className="!p-4 border-l-4 border-l-green-500">
-                <p className="font-bold text-gray-900 text-sm mb-2">Pós-longão</p>
-                <p className="text-xs text-gray-500">Refeição em até 60 min. Carboidrato + Proteína. Reidratar até urina clara.</p>
-              </Card>
-            </div>
-          </section>
-
-          <Card className="bg-gradient-to-br from-indigo-900 to-indigo-800 text-white">
-            <h4 className="font-black text-center mb-4 text-orange-400">PROTOCOLO DIA DA PROVA</h4>
-            <div className="grid grid-cols-2 gap-4 text-[10px] font-bold uppercase tracking-tighter">
-              <div className="p-3 bg-white/10 rounded-2xl">Acordar 3h antes</div>
-              <div className="p-3 bg-white/10 rounded-2xl">Café igual ao treino</div>
-              <div className="p-3 bg-white/10 rounded-2xl">400-500ml água</div>
-              <div className="p-3 bg-white/10 rounded-2xl">Gel a cada 45min</div>
-            </div>
+          <Card className="!p-4 border-l-4 border-l-indigo-500" title="Pré-Longão">
+             <p className="text-sm text-gray-600">Jantar leve (carboidratos simples). Nada de gorduras ou álcool 24h antes.</p>
+          </Card>
+          <Card className="!p-4 border-l-4 border-l-orange-500" title="Durante">
+             <p className="text-sm text-gray-600">Gel de carbo a cada 45min em treinos acima de 12K.</p>
           </Card>
         </div>
       </div>
@@ -329,51 +271,16 @@ const App: React.FC = () => {
 
   const Tips = () => {
     return (
-      <div className="px-6 pt-8 animate-in slide-in-from-right duration-300">
+      <div className="px-6 pt-8">
         <h2 className="text-2xl font-black text-indigo-900 mb-6 flex items-center gap-2">
-          <Info className="text-indigo-600" /> Dicas JM Runners
+          <Info className="text-indigo-600" /> Dicas
         </h2>
-
-        <div className="space-y-4">
-          <section className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
-            <h3 className="font-black text-indigo-900 mb-4 flex items-center gap-2">
-              <TrendingUp className="text-orange-500" /> ORIENTAÇÃO DE RITMO
-            </h3>
-            <div className="space-y-4">
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Leves & Longões</p>
-                <p className="text-lg font-black text-indigo-600">6:45 – 7:30 min/km</p>
-                <p className="text-xs text-gray-500">Ritmo de conversa confortável.</p>
-              </div>
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Fartlek (Forte)</p>
-                <p className="text-lg font-black text-pink-600">6:00 – 6:20 min/km</p>
-                <p className="text-xs text-gray-500">Confortavelmente difícil, sem sprint.</p>
-              </div>
-            </div>
-          </section>
-
-          <section className="bg-indigo-900 p-6 rounded-3xl text-white">
-            <h3 className="font-black mb-4 flex items-center gap-2 text-orange-400">
-              <MapPin /> ESTRATÉGIA DE PROVA
-            </h3>
-            <ul className="space-y-3 text-sm font-medium">
-              <li className="flex gap-3"><ChevronRight className="flex-shrink-0 text-orange-400" size={16} /> Começar mais lento que o necessário.</li>
-              <li className="flex gap-3"><ChevronRight className="flex-shrink-0 text-orange-400" size={16} /> Água em todos os postos.</li>
-              <li className="flex gap-3"><ChevronRight className="flex-shrink-0 text-orange-400" size={16} /> Gel de carboidrato regular.</li>
-              <li className="flex gap-3"><ChevronRight className="flex-shrink-0 text-orange-400" size={16} /> Ritmo confortável desde o km 1.</li>
-            </ul>
-          </section>
-
-          <section className="bg-orange-50 p-6 rounded-3xl border border-orange-100">
-             <h3 className="font-bold text-orange-800 mb-3">PONTOS DE ATENÇÃO</h3>
-             <ul className="space-y-2 text-xs text-orange-700 font-bold">
-               <li>• Aquecimento mínimo de 5-10 min</li>
-               <li>• Alongamento leve após os treinos</li>
-               <li>• Usar o mesmo tênis da prova a partir dos 14K</li>
-               <li>• Dormir bem antes dos treinos longos</li>
-             </ul>
-          </section>
+        <div className="bg-indigo-900 p-6 rounded-3xl text-white">
+          <h3 className="font-black mb-4 text-orange-400 uppercase tracking-widest text-xs">Ritmos Sugeridos</h3>
+          <div className="space-y-2">
+            <p className="font-bold">Leve: 6:45 - 7:30 min/km</p>
+            <p className="font-bold">Forte: 6:00 - 6:20 min/km</p>
+          </div>
         </div>
       </div>
     );
@@ -395,8 +302,6 @@ const App: React.FC = () => {
       <main className="pb-8">
         {renderContent()}
       </main>
-
-      {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-xl border-t border-gray-100 px-6 py-4 flex justify-between items-center z-50">
         <NavButton active={activeTab === 'home'} icon={<Home />} label="Home" onClick={() => setActiveTab('home')} />
         <NavButton active={activeTab === 'plan'} icon={<Calendar />} label="Plano" onClick={() => setActiveTab('plan')} />
@@ -408,7 +313,6 @@ const App: React.FC = () => {
   );
 };
 
-// Componente de botão de navegação corrigido para garantir que o clone funcione
 const NavButton: React.FC<{ active: boolean; icon: React.ReactNode; label: string; onClick: () => void }> = ({ active, icon, label, onClick }) => (
   <button 
     onClick={onClick}
